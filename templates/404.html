@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+    img.error {
+        width: 50%;
+    }
+    </style>
+    <title></title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="text-center">
+                    <img class="error" src="{% static 'images/404-error.jpg' %}">
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</body>
+
+</html>

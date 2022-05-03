@@ -1,0 +1,281 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500;600&family=Fira+Sans:wght@500;600&family=Poppins:wght@400;500;600&family=Raleway:wght@300;400;500;700&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel='stylesheet' href='{% static "css/bootstrap.min.css" %}'>
+    <link rel='stylesheet' href='{% static "css/summernote-lite.min.css" %}'>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css'>
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tree.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+    <title>
+        Tracking - Automated Leads
+    </title>
+<!-- Begin LabiDesk widget -->
+<script defer id="PMZO1gPg-1gQAdFfB-1643645193" src="https://labidesk.com/js/widget/intercom.js" data-type="lbd"></script>
+
+        <!-- Usetiful script start -->
+<script>
+(function (w, d, s) {
+    var a = d.getElementsByTagName('head')[0];
+    var r = d.createElement('script');
+    r.async = 1;
+    r.src = s;
+    r.setAttribute('id', 'usetifulScript');
+    r.dataset.token = "f03bb7279a8cc00c7902ba749820ff29";
+                        a.appendChild(r);
+  })(window, document, "https://www.usetiful.com/dist/usetiful.js");</script>
+
+<!-- Usetiful script end -->
+
+
+</head>
+
+<body style="background: #F0F0F7;">
+    {% block content %}
+    {% endblock content %}
+     <div class="modal fade" id="upgradeplan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+               <!--  <div class="modal-header" style="">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style=""></button>
+                </div> -->
+                <div class="modal-body">
+                    <div class="text-center">
+                        <img class="war" src="{% static 'images/warnings.png' %}">
+                        <h5 style="    color: #065464;
+    font-weight: bold;
+    position: relative;
+    top: 10px;">You have more than {% if request.user.is_authenticated %}{{request.user|get_tracked_ips}} {% endif %}new tracked companies</h5>
+      <h6 style="color: #ccc;
+    font-weight: bold;
+    position: relative;
+    top: 10px;">>>Upgrade your plan<<<</h6>
+                    </div>
+                    <div class="modal-btn">
+                        <button class="btn btn-modal cancel"data-bs-dismiss="modal">Cancel</button>
+                    <a href="{% url 'my_plan_app:my_plan_view' %}">
+                        <button type="button" class="btn btn-modal" >Upgrade Now 
+                        </button>
+                    </a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src='{% static "js/jquery.min.js" %}'></script>
+    <script src='{% static "js/popper.min.js" %}'></script>
+    <script src='{% static "js/bootstrap.min.js" %}'></script>
+    <script src="{% static 'js/slick.min.js' %}"></script>
+    <script src="{% static 'js/comman.js' %}"></script>
+    <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap"></script> -->
+    <!-- <script src="{% static 'js/apexcharts' %}"></script> -->
+    <!-- <script src="{% static 'js/Chart-1.js' %}"></script> -->
+    <!-- <script src="{% static 'js/chart.js' %}"></script> -->
+    <!-- <script src="{% static 'js/drop-zone.js' %}"></script> -->
+    <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'js/dataTables.bootstrap.js' %}"></script>
+    <script src="{% static 'js/dataTables.responsive.js' %}"></script>
+    <!-- <script src="{% static 'js/tinymce.min.js' %}"></script> -->
+    <script src="{% static 'js/bootstrap-select.min.js' %}"></script>
+    <script src="{% static 'js/jquery-1.12.4.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.js' %}"></script>
+    <script src='https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js'></script>
+    <script src="{% static 'js/zoomout.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+    <script>
+        function myFunction() {
+  /* Get the text field */
+  var copyText = document.getElementById("myInput");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+  /* Copy the text inside the text field */
+  navigator.clipboard.writeText(copyText.value);
+  
+  /* Alert the copied text */
+  alert("Copied the text: " + copyText.value);
+}
+</script>
+    <script>
+        $(document).ready(function () {
+        var url = window.location;
+        
+        $('.sidebar ul li a[href="' + url + '"]').parent().addClass('active');
+
+    // Will also work for relative and absolute hrefs
+        $('.sidebar ul li a').filter(function () {
+            return this.href == url;
+        }).parent().addClass('active').parent().parent().addClass('active');
+        
+        
+        $(".menubar").click(function(){
+    $(".sidebar").toggle();
+    $("body").toggleClass('leftside-none');
+    
+  });
+        
+    });
+    
+</script>
+    <script>
+        $(function () {
+  $("#datepicker").datepicker({ 
+        autoclose: true, 
+        todayHighlight: true
+  });
+});
+  
+  
+  $(document).ready(function(){
+
+var quantitiy=0;
+   $('.quantity-right-plus').click(function(e){
+        
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        var quantity = parseInt($('#quantity').val());
+        
+        // If is not undefined
+            
+            $('#quantity').val(quantity + 1);
+
+          
+            // Increment
+        
+    });
+
+     $('.quantity-left-minus').click(function(e){
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        var quantity = parseInt($('#quantity').val());
+        
+        // If is not undefined
+      
+            // Increment
+            if(quantity>0){
+            $('#quantity').val(quantity - 1);
+            }
+    });
+    
+});
+  
+$(function() {
+  $("#makeMeSummernote").summernote({
+     placeholder: 'Hello bootstrap 4',
+       
+        height: 300,
+    
+  });
+  
+})
+  
+  $(document).ready(function(){
+ 
+  $(".toggle_campain_1").click(function(){
+    $("#toggle-box").toggle();
+  });
+   
+  
+});
+
+  </script>
+    <script type="">
+        $('table').DataTable();
+</script>
+    {% if show_modal %}
+    <script type="text/javascript">
+    $(window).on('load', function() {
+
+        $('#myModal').modal('show');
+    });
+    </script>
+    {% endif %}
+    <script>
+    $(document).on('change', ".short_by", function() {
+        var short_by = $(this).val();
+        var url_string = window.location.href; //window.location.href
+        var url = new URL(url_string);
+        var tracking_id = url.searchParams.get("tracking_id");
+        if (tracking_id) {
+            window.location.href = '?tracking_id=' + tracking_id + "&" + short_by;
+        } else {
+            window.location.href = "?" + short_by;
+        }
+
+    });
+    </script>
+    <script type="text/javascript">
+    $(document).on("click", ".script_delete", function() {
+        var id = $(this).data("script_id");
+        var token = '{{csrf_token}}';
+        $.ajax({
+            headers: { "X-CSRFToken": token },
+            url: "{% url 'tracking_code_app:delete_user_tracking_code_view' %}?script_id=" + id,
+            type: "POST",
+            success: function() {
+                // swal("Done!", "It was succesfully deleted!", "success");
+                history.back();
+            }
+        });
+
+
+    });
+    </script>
+
+<script type="text/javascript">
+
+$(document).on("click", ".copycode", function() {
+    console.log("copycode")
+    $("textarea").select();
+    document.execCommand('copy');
+});
+</script>
+
+
+    <script type="text/javascript">
+   $(document).on("click", ".upgradeplan", function() {
+
+        $('#myModal').modal('show');
+    });
+    </script>
+
+
+
+<script>
+{% if 'dashboard' in request.build_absolute_uri or  'tracking-code' in request.build_absolute_uri or 'my-plan' in request.build_absolute_uri or 'payment-history' in request.build_absolute_uri or 'my-profile' in request.build_absolute_uri %} 
+{% if request.user.is_authenticated %} {% if request.user|get_plan_upgrade %}
+window.onload = function() {
+    $('#upgradeplan').modal('show');
+}; {% endif %} {% endif %}
+ {% endif %}
+</script>
+    {% block script %}
+    {% endblock script %}
+</body>
+
+</html>

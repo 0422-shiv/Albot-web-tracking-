@@ -1,0 +1,168 @@
+{% extends 'base/base_template.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<style type="">
+
+  span.launch a{
+    color: #fff!important;
+  }
+  .alert-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+    position: absolute;
+    padding: 5px;
+    margin: 0;
+    right: 13%;
+    top: 24%;
+    width: 455px;
+}
+.alert-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+     position: absolute;
+    padding: 5px;
+    margin: 0;
+    right: 13%;
+    top: 24%;
+    width: 455px;
+}
+
+.steps li > span:after, .steps li > span:before {
+    content: "";
+    display: block;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    top: 0;
+    left: -60px!important;
+    border: solid transparent;
+    border-left-color: #fff;
+    border-width: 30px;
+    transform: rotate(
+180deg)!important;
+}
+.steps .past {
+    background: #065464!important;
+}
+.steps li > span:before {
+    z-index: -1!important;
+}
+.steps .present{
+  background: #fff!important;
+}
+
+  .form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.bg-white {
+    padding-bottom: 56px!important;
+    margin: 1px!important;
+}
+
+.form-control-placeholder {
+    position: absolute;
+    top: 7px;
+    padding: 10px 0 0 0px;
+    transition: all 200ms;
+    opacity: 0.5;
+    background: white;
+    left: 38px;
+}
+
+.form-control:focus + .form-control-placeholder,
+.form-control:valid + .form-control-placeholder {
+  font-size: 75%;
+  transform: translate3d(0, -100%, 0);
+  opacity: 1;
+}
+</style>
+
+<div class="banner vh-100">
+  <div class="container">
+
+  <div class="bg-white">
+    <div class="row ">
+
+      <div class="col-md-12">
+          <div class="white-border ">
+      <div class="steps-wizard">
+        <ul class="steps">
+  <li class="past">
+  
+    <span class="launch">
+      <a href="{% url 'user_app:login_view' %}">Login</a>
+    </span><i></i>
+  </li>
+  <li class="present">
+    <span class="launch">
+     <a href="{% url 'user_app:subscribe_view' %}" class="color-step" style="color: #065464!important;opacity: 1!important;font-weight: 600;">Register </a>
+    </span><i></i>
+  </li>
+
+</ul>
+      </div>
+    </div>
+    </div>
+      <div class="col-md-6">
+        <div class="text-center">
+          <img src="{% static 'images/side-img.png' %}" class="logo-signn">
+        </div>
+      </div>
+      <div class="col-md-6">
+                 {% for message in messages %}
+<div class="container-fluid p-0">
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="True">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+</div>
+{% endfor %}
+        <div class="form-padding">
+          
+            <div class="text-center">
+              <h1 class="login-clr">Log in</h1>
+            </div>
+
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <i class="fa fa-envelope" aria-hidden="true"></i>
+      {{log_in_form.email}}
+        <!-- <input type="text" id="Email" class="form-control color" required> -->
+        <label class="form-control-placeholder" for="id_email">Email</label>
+      </div>
+  <div class="form-group">
+      <i class="fa fa-key" aria-hidden="true"></i>
+      {{log_in_form.password1}}
+        <!-- <input type="text" id="Password" class="form-control color" required> -->
+        <label class="form-control-placeholder" for="id_password1">Password</label>
+      </div>
+  <div class="text-end">
+    <!-- <a href="forget-password.php" >Forgot password?</a> -->
+    <a href="{% url 'user_app:password_reset' %}" >Forgot password?</a>
+  </div> 
+<div class="">
+  <button type="submit" class="btn submit"><a style="text-decoration: none;color: white;"> LOGIN</a></button>
+ 
+</div>
+<div class="text-center mt-4">
+   <p style="color: #313131;font-size: 15px;">Don't have an account? <a href="{% url 'user_app:subscribe_view' %}"> Register Now</a></p>
+</div>
+</form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+</div>
+
+{% endblock content %}

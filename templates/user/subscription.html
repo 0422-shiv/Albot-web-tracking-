@@ -1,0 +1,152 @@
+{% extends 'base/base_template.html' %}
+{% load static %}
+{% block content %}
+<style type="">
+    tbody, td, tfoot, th, thead, tr{
+        background: #ECFDFF!important;
+      }
+      div#DataTables_Table_0_paginate {
+        display: none;
+    }
+    .fonts-td {
+    font-size: 12px!important;
+    font-weight: bold;
+}
+.text-img img {
+    height: auto;
+    padding-left: 28px;
+    width: 250px;
+    object-fit: cover;
+    position: relative;
+    bottom: 0px;
+    top: 66px;
+}
+    .ul-shadow {
+    background: white;
+    padding: 15px;
+    box-shadow: 0 5px 9px 0 rgb(0 0 0 / 26%);
+    border-radius: 10px;
+    margin: 15px 0px!important;
+    text-align: left!important;
+}
+ul.launch-li li {
+    list-style: none;
+    color: #495A74;
+    font-weight: bold;
+    margin-bottom: 17px;
+    font-size: 15px;
+    position: relative;
+    bottom: 24px;
+}
+   
+.main {
+    box-shadow: 0 4px 9px 0 rgb(0 0 0 / 26%);
+  
+    width: 100%;
+    overflow: auto;
+    margin: 0 auto;
+   
+    border-radius: 10px !important;
+}
+.price-table tr td:first-child {
+    border-left: 0 none;
+    text-align: center;
+    width: 238px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+}
+</style>
+<div class="container">
+    <div class="row " style="margin-top:40px">
+        <div class="col-md-12"></div>
+    </div>
+    <div class="ul-shadow">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="trial">
+                    <!-- Get 7 days free trial -->
+                    <h1> <a href="{% url 'user_app:login_view' %}" class="float-end fs-5 text-color text-decoration-none"><i class="fa fa-arrow-left"></i> Back</a></h1>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div>
+                    <div class="text-img">
+                        <img src="{% static 'images/side-img.png' %}">
+                    </div>
+                   <!--  <ul class="launch-li">
+                        <li>Identify no. of companies</li>
+                        <li>Number of website</li>
+                        <li>Number of code generate</li>
+                        <li>LinkedIn Warm-Up</li>
+                        <li>Email Warm-Up</li>
+                        <li>Daily Email Limit</li>
+                        <li>Weekly Connection Limit</li>
+                        <li>Email Enrichment</li>
+                        <li>LinkedIn Messages (Free)</li>
+                        <li>LinkedIn Messages (Paid)</li>
+                        <li>LinkedIn Inmail (Paid)</li>
+                        <li>1-2-1 Marketing</li>
+                        <li>View Prospects Profile</li>
+                        <li>Like Prospect Recent Post(s)</li>
+                        <li>Endorse A LinkedIn Profile</li>
+                        <li>CRM Management</li>
+                        <li>CRM Export</li>
+                        <li>Social Content</li>
+                        <li>Profile Views</li>
+                        <li>SSI (SEO)</li>
+                        <li>Score Inbox Management</li>
+                    </ul> -->
+                </div>
+            </div>
+            {% for data in get_plans %}
+            <div class="col-md-3">
+                <div class="main">
+                    <table class="price-table table-borderless">
+                        <tbody>
+                            <tr class="">
+                                <td class="price-table-head">
+                                    <span style="top: 20px;position: relative;">{{data.plan}} </span><br>
+                           <!--          <span style="   position: relative;left: 4px;
+    top:10px;font-size: 25px;">${{data.per_month_charge_in_dollar}}</span>
+                                    <span style="position: relative;top: 10px; font-size: 14px;position: relative;left: 6px;">/month</span></br> -->
+                                    <span style="      position: relative;left: 4px;
+    top:10px;font-size: 25px;">£{{data.per_month_charge_in_pound}}</span>
+                                    <span style="position: relative;top: 10px; font-size: 18px;position: relative;left: 6px;">/month</span>
+                                </td>
+                            <tr>
+                                <td >
+                                    Identify {{data.no_of_companies_to_identify}} companies a month
+                                   
+                                </td>
+                            </tr>
+                        
+                           
+                            <tr>
+                                <td>
+                                  Track {{data.no_of_website}} Website
+                                </td>
+                            
+                            <tr>
+                                <td>Create {{data.no_of_tracking_code}} Tracking codes</td>
+
+                            </tr>
+                            <tr>
+                                <td>Plus All additional features (coming soon)</td>
+                            </tr>
+                          
+                        </tbody>
+                    </table>
+                </div>
+                <div class="button">
+                    {% if data.is_trial_plan %}
+                    <a href="{% url 'user_app:register_view' data.id %}" style="color: #fff;text-decoration: none;position: relative;right: 32px;"><button class="btn view">TRY FOR FREE </button></a>
+                    {% else %}
+                    <a href="{% url 'user_app:register_view' data.id %}" style="color: #fff;text-decoration: none;position: relative;right: 32px;"><button class="btn view">Subscribe</button></a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

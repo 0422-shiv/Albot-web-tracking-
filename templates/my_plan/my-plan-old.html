@@ -1,0 +1,381 @@
+{% extends 'base/base_template.html' %}
+{% load static %}
+{% block content %}
+
+<style type="">
+    tbody, td, tfoot, th, thead, tr{
+        background: #ECFDFF!important;
+      }
+      div#DataTables_Table_0_paginate {
+        display: none;
+    }
+    .ul-shadow {
+    background: white;
+    padding: 15px;
+    box-shadow: 0 5px 9px 0 rgb(0 0 0 / 26%);
+    border-radius: 10px;
+    margin: 15px 0px!important;
+    text-align: left!important;
+}
+</style>
+{% include '../dashboard/sidebar.html' %}
+<div class="content-page">
+    {% include '../dashboard/topbar.html' %}
+    {% for message in messages %}
+<div class="container-fluid p-0">
+    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="True">&times;</span>
+        </button>
+        {{ message }}
+    </div>
+</div>
+{% endfor %}
+    <div class="col-md-12">
+        <div class="card">
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <span class="program">Current Plan</span>
+                    <span class="float-end">:</span>
+                </div>
+                <div class="col-md-9">
+                    <div class="program-s">
+                        {% if request.user.subscription_type == "paid" %}
+                        PLAN {{request.user.subscription.plan}}
+                        {% endif %}
+                        {% if request.user.subscription_type == "free" %}
+                        FREE TRIAL OF {{request.user.subscription.no_of_trial_days}} days
+                        {% endif %}
+                        {% if request.user.subscription == None %}
+                        No plan Upgraded
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-3">
+                    <span class="program-p">Plan Start </span>
+                    <span class="float-end">:</span>
+                </div>
+                <div class="col-md-3">
+                    <div class="progrm">
+                        {% if not request.user.subscription == None %}
+                        {{request.user.subscription_start_date|date:"d b Y"}}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-md-3">
+                    <span class="program-p">Plan Renew</span>
+                    <span class="float-end">:</span>
+                </div>
+                <div class="col-md-3">
+                    <div class="progrm">
+                        {% if request.user.subscription_expire_date <= current_date_time %} plan expired on {{request.user.subscription_expire_date|date:"d b Y"}} {% else %} {{request.user.subscription_expire_date|date:"d b Y"}} {% endif %} </div> </div> </div> </div> </div> <div class="container">
+                            <div class="row " style="margin-top:40px">
+                                <div class="col-md-12"></div>
+                            </div>
+                            <div class="ul-shadow">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div>
+                                            <div class="text-img">
+                                                <img src="{% static 'images/side-img.png' %}">
+                                            </div>
+                                            <ul class="launch-li p-0">
+                                                <li>Identify no. of companies</li>
+                                                <li>Number of website</li>
+                                                <li>Number of code generate</li>
+                                                <li>LinkedIn Warm-Up</li>
+                                                <li>Email Warm-Up</li>
+                                                <li>Daily Email Limit</li>
+                                                <li>Weekly Connection Limit</li>
+                                                <li>Email Enrichment</li>
+                                                <li>LinkedIn Messages (Free)</li>
+                                                <li>LinkedIn Messages (Paid)</li>
+                                                <li>LinkedIn Inmail (Paid)</li>
+                                                <li>1-2-1 Marketing</li>
+                                                <li>View Prospects Profile</li>
+                                                <li>Like Prospect Recent Post(s)</li>
+                                                <li>Endorse A LinkedIn Profile</li>
+                                                <li>CRM Management</li>
+                                                <li>CRM Export</li>
+                                                <li>Social Content</li>
+                                                <li>Profile Views</li>
+                                                <li>SSI (SEO)</li>
+                                                <li>Score Inbox Management</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    {% for data in get_plans %}
+                                    <div class="col-md-3">
+                                       
+                                        {% if request.user.subscription_expire_date >= current_date_time %}
+                                         {% if request.user.subscription.id == data.id %} 
+                                     
+                                         <div class="hotel-offer">
+                                            <p><small>Current Plan</small>
+                                            </p>
+                                    </div>
+                                    {% endif %}
+                                    {% endif %}
+                                   
+                                    <div class="main">
+                                        <table class="price-table table-borderless">
+                                            <tbody>
+                                                <tr class="">
+                                                    <td class="price-table-head">
+                                                        <span style="top: 20px;
+    position: relative;">PLAN {{data.plan}} </span><br><span style="position: relative;left: 4px;
+    top:10px;font-size: 25px;">${{data.per_month_charge_in_dollar}}</span><span style="position: relative;top: 10px; font-size: 14px;position: relative;left: 6px;">/month</span></br><span style="position: relative;left: 4px;
+    top:10px;font-size: 25px;">£{{data.per_month_charge_in_pound}}</span><span style="position: relative;top: 10px; font-size: 14px;position: relative;left: 6px;">/month</span></td>
+                                                <tr>
+                                                    <td class="fonts-td">
+                                                        {{data.no_of_companies_to_identify}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="fonts-td"> {{data.no_of_website}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="fonts-td">{{data.no_of_tracking_code}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {% if data.linkedin_warm_up %}
+                                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        {% else %}
+                                                        <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {% if data.email_warm_up %}
+                                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        {% else %}
+                                                        <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                                                        {% endif %}
+                                                    </td>
+                                                <tr>
+                                                    <td class="number-pricing-table">{{data.daily_email_limit}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="number-pricing-table">{{data.weekly_connection_limit}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {% if data.email_enrichment %}
+                                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        {% else %}
+                                                        <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="number-pricing-table">{{data.linkedin_messages_free}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="number-pricing-table">{{data.linkedin_messages_paid}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="number-pricing-table">{{data.linkedIn_inmail_paid}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {% if data.one_two_one_marketing %}
+                                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        {% else %}
+                                                        <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {% if data.view_prospects_profile %}
+                                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        {% else %}
+                                                        <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {% if data.like_prospect_recent_post %}
+                                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        {% else %}
+                                                        <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {% if data.endorse_linkedin_profile %}
+                                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        {% else %}
+                                                        <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {% if data.crm_Management %}
+                                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        {% else %}
+                                                        <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                                                        {% endif %}
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {% if data.crm_export %}
+                                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        {% else %}
+                                                        <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {% if data.social_content %}
+                                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        {% else %}
+                                                        <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {% if data.profile_views %}
+                                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        {% else %}
+                                                        <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {% if data.ssi_seo %}
+                                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        {% else %}
+                                                        <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {% if data.score_inbox_management %}
+                                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        {% else %}
+                                                        <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+{% if request.user.subscription.id == data.id and request.user.subscription_expire_date >= current_date_time %} 
+<div class="button">
+                                        <a href="{% url 'payment_history_app:payment_history_view' %}" style=" color: #fff;text-decoration: none;position: relative;right: 32px;"><button class="btns views">CURRENT PLAN</button></a>
+                                </div>
+                                <div class="plan">
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal-4">Cancel Plan</a>
+                                </div>
+                                {% else %}
+                                {% if data.is_trial_plan and request.user.subscription == None %}
+                                <div class="button">
+                                    <a href="{% url 'my_plan_app:upgrade_plan_view' data.id %}" style="color: #fff;text-decoration: none;position: relative;right: 32px;"><button class="btn view">GET FOR {{data.no_of_trial_days}} DAYS FREE </button></a>
+                                </div>
+                                {% else %}
+                                <div class="button">
+                                    <a href="{% url 'my_plan_app:upgrade_plan_view' data.id %}" style="color: #fff;text-decoration: none;position: relative;right: 32px;"><button class="btn view">UPGRADE</button></a>
+                                </div>
+                                {% endif %}
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                            <div class="text-center">
+                                <h5>Need more than 1500 companies identifying per month?
+</h5>
+                            </div>
+                            <div class="text-center">
+                             <a href="#" style="text-decoration:none;">>> Contact Us <<</a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModal-4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: none;">
+                        <div class="text-center sign-logoe">
+                            <img src="{% static 'images/deletee.png' %}" style="width: 150px;">
+                        </div>
+                    </div>
+                    <div class="modal-body" style="padding: 0;">
+                        <div class="sure">
+                            <p>Cancel Plan</p>
+                            <span>To cancel plan, send an email on support@automatedleads.in</span>
+                        </div>
+                        <div class="text-center mb-5 mt-3 ">
+                            <button class="btn cancel-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-dismiss="modal"> CONTINUE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header" style="color: #fff;">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <form method="POST" action="{% url 'my_plan_app:plan_cancel_view'%}">
+                                {% csrf_token %}
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label class="form-label">Email id</label>
+                                    <input type="email" name="email" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label class="form-label">Message</label>
+                                    <textarea class="form-control" name="message" rows=5 required> 
+                                        </textarea> 
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit"  class="btn btn-view sbumit">Submit</button>
+                            <!--     <button class="btn cancel-btn" data-bs-toggle="modal" data-bs-target="#exampleModal-12" data-bs-dismiss="modal"> Submit</button> -->
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModal-12" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: none;">
+                        <!--                 <div class="text-center sign-logoe">
+                    <img src="{% static 'images/deletee.png' %}" style="width: 150px;">
+                </div> -->
+                    </div>
+                    <div class="modal-body" style="padding: 0;">
+                        <!--   <div class="sure">
+                    <p>Cancel Plan</p>
+                    <span>To cancel plan, send an email on support@automatedleads.in</span>
+                </div> -->
+                        <div class="text-center mb-5 mt-3 ">
+                            <button class="btn cancel-btn" data-bs-dismiss="modal"> Coming Soon</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock content %}

@@ -1,0 +1,83 @@
+{% extends 'base/base_template.html' %}
+{% load static %}
+{% block content %}
+         
+<style type="">
+  tbody, td, tfoot, th, thead, tr{
+    background: transparent!important;
+  }
+</style>
+         
+{% include 'dashboard/sidebar.html' %} 
+
+   <div class="content-page">
+
+    {% include 'dashboard/topbar.html' %}
+
+<div class="content">
+<div class="row">
+  <div class="col-md-12">
+   
+
+
+
+  <div class="tabel">
+      <table  class="table table-borderless ">
+       
+        <thead>
+          <tr class="roew">
+             <th class="heading"><input type="checkbox" name=""></th>
+            <th class="heading">Payment Date</th>
+            <th class="heading">Payment Method</th>
+            <th class="heading">Status</th>
+             <th class="heading">Plan</th>
+            <th class="heading">Payment Amount</th>
+            <!-- <th class="heading">Action</th> -->
+            
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in get_payment_history %}
+       <tr>
+         <td class="td-row"><input type="checkbox" name=""></td>
+         <td class="td-row">{{data.created_at}}</td>
+         <td class="td-row">{% if data.payment_method %}{{data.payment_method}}{% else %}-{% endif %}</td>
+         <td class="td-row"><span class="edit">{% if data.payment_status %}Paid{% else %}Failed{% endif %}</span></td>
+           <td class="td-row">{{data.plan_id}}</td>
+         <td class="td-row">£{{data.amount}}</td>
+       <!--   <td class="td-row"><button class="box1" data-bs-toggle="modal" data-bs-target="#exampleModal-11" data-bs-dismiss="modal">View </button></td> -->
+         
+       </tr>
+
+        {% endfor %}
+        </tbody>
+     
+      </table>
+      
+    </div>
+</div>
+
+</div>
+
+</div>
+<div class="modal fade" id="exampleModal-11" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;">
+<!--                 <div class="text-center sign-logoe">
+                    <img src="{% static 'images/deletee.png' %}" style="width: 150px;">
+                </div> -->
+            </div>
+            <div class="modal-body" style="padding: 0;">
+              <!--   <div class="sure">
+                    <p>Cancel Plan</p>
+                    <span>To cancel plan, send an email on support@automatedleads.in</span>
+                </div> -->
+                <div class="text-center mb-5 mt-3 ">
+                    <button class="btn cancel-btn" data-bs-dismiss="modal"> Coming Soon</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

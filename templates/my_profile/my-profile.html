@@ -1,0 +1,161 @@
+{% extends 'base/base_template.html' %}
+{% load static %}
+{% block content %}
+         
+{% include 'dashboard/sidebar.html' %} 
+
+   <div class="content-page">
+
+     {% include 'dashboard/topbar.html' %}
+
+{% for message in messages %}
+<div class="container-fluid p-0">
+  <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="True">&times;</span>
+    </button>
+    {{ message }}
+  </div>
+</div>
+{% endfor %}
+
+<div class="content">
+<div class="row">
+  <div class="col-md-12">
+    <div class="profile-section">
+      <div class="avatar-upload">
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+            <input type="hidden" name="editprofile" value="upload_image">
+            <input type="hidden" name="email" value="{{user.email}}">
+        <div class="avatar-edit">
+            <!-- {{profile_image_form.profile_image}} -->
+            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" name="profile_image" onchange="form.submit()" />
+            <label for="imageUpload">
+              <i class="fa fa-camera"></i>
+            </label>
+        </div>
+        </form>
+
+        <div class="avatar-preview">
+            <div id="imagePreview" style="background-image: url({{ user.profile_image.url }});">
+
+            </div>
+        </div>
+        <a href="{{ user.profile_image.url }}" style="text-decoration: none;margin-left: 30px;
+    font-size: 16px;" target="_blank">View Picture</a>
+        
+    </div>
+    <h1>{% if user.first_name %}{{user.first_name}}&nbsp;{{user.last_name}}{% else %}{{user.email}}{% endif %}</h1>
+    </div>
+  </div>
+</div>
+<div class="profile-box">
+
+<form method="POST">
+  {% csrf_token %}
+
+    <input type="hidden" name="editprofile" value="manage_profile">
+
+<div class="row mt-3 mb-2">
+  <div class="col-md-12">
+    <div class="personal-section">
+      <h3>Personal Profile</h3>
+    </div>
+  </div>
+    <div class="mb-3 input row">
+    <label for="First Name" class="col-sm-2 col-form-label">First Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputFirstName" value="{{user.first_name|default:''}}" name="first_name" >
+    </div>
+  </div>
+  <div class="mb-3 input row">
+    <label for="Last Name" class="col-sm-2 col-form-label">Last Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputLastName" value="{{user.last_name|default:''}}" name="last_name" >
+    </div>
+  </div>
+   <div class="mb-3 input row">
+    <label for="Email" class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputEmail" value="{{user.email|default:''}}" name="email" readonly>
+    </div>
+  </div>
+     <div class="mb-3 input row">
+    <label for="Company" class="col-sm-2 col-form-label">Company</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputCompany" value="{{user.company|default:''}}" name="company" >
+    </div>
+  </div>
+
+  <div class="text-end">
+    <button class="btn btn-profile" type="submit">SAVE</button>
+  </div>
+
+</div>
+</form>
+   </div>
+
+   <div class="profile-box mt-3 mb-5">
+<form method="POST">
+
+  {% csrf_token %}
+
+        <input type="hidden" name="editprofile" value="change_password">
+
+        <input type="hidden" name="email" value="{{user.email}}">
+
+<div class="row mt-3 mb-2">
+  <div class="col-md-12">
+    <div class="personal-section">
+      <h3>Change Password</h3>
+    </div>
+  </div>
+    <div class="mb-3 input row">
+    <label for="Current Password" class="col-sm-2 col-form-label">Current Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputCurrentPassword" name="old_password">
+    </div>
+  </div>
+  <div class="mb-3 input row">
+    <label for="New Password" class="col-sm-2 col-form-label">New Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputNewPassword"  name="password1">
+    </div>
+  </div>
+   <div class="mb-3 input row">
+    <label for="ConfirmPassword" class="col-sm-2 col-form-label">Confirm Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="ConfirmPassword"  name="password2">
+    </div>
+  </div>
+
+
+  <div class="text-end">
+    <button class="btn btn-profile" type="submit">SAVE</button>
+  </div>
+
+</div>
+</form>
+   </div>
+</div>
+</div>
+          
+{% endblock content %}
+
+<script type="">
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+            $('#imagePreview').hide();
+            $('#imagePreview').fadeIn(650);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+$("#imageUpload").change(function() {
+    readURL(this);
+});
+</script>

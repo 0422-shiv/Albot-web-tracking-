@@ -1,0 +1,111 @@
+<style type="">
+button.btn.copied {
+    position: absolute;
+    right: 14px;
+    background: #fff;
+    padding: 5px 10px;
+    margin: 6px 8px;
+    font-size: 14px;
+    border-radius: 100%;
+    box-shadow: 0px 0px 5px #ccc;
+    top: 0;
+}
+</style>
+
+
+{% load static %}
+<form method="POST" action="{% url 'tracking_code_app:update_user_tracking_code_detail_view' instance.script_id %}">
+    {% csrf_token %}
+<div class="worlsd" style="    background: #dbdbdb7a;
+    padding-bottom: 6px;
+    margin: 8px 20px;
+    border-radius: 10px;">
+    <img src="{% static 'images/worlds.png' %}">
+    <input type="text" class="filter" name="company_name" value="{{instance.company_name}}">
+</div>
+<div class="worlsd" style="padding-bottom: 10px;background: #dbdbdb7a;margin: 8px 20px;border-radius: 10px;">
+    <img src="{% static 'images/worlds.png' %}">
+    <input type="text" class="filter" readonly value="{{instance.web_page_name}}">
+</div>
+<div class="script position-relative">
+ <button type="button" class="btn copied copycode" ><i class="fa fa-copy"></i> </button>
+    <textarea class="form-control" id="myInput" rows="7" readonly>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+          
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0,
+            v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+let device = getCookie('device')
+
+if (device == null || device == undefined) {
+    device = uuidv4()
+ 
+}
+
+const aYearFromNow = new Date();
+aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
+
+document.cookie = 'device=' + device + ";domain=;path=/;expires=" + aYearFromNow + ";"
+var before_loadtime = new Date().getTime();
+$.getJSON('https://api.ipify.org/?format=json', function(data) {
+    var aftr_loadtime = new Date().getTime();
+    var t = Math.round((aftr_loadtime - before_loadtime) / 60)
+    var i = JSON.stringify(data.ip, null, 2)
+    var b = (function(agent) {
+
+        switch (true) {
+            case agent.indexOf("edge") > -1:
+                return "MS Edge";
+            case agent.indexOf("edg/") > -1:
+                return "Edge ( chromium based)";
+            case agent.indexOf("opr") > -1 && !!window.opr:
+                return "Opera";
+            case agent.indexOf("chrome") > -1 && !!window.chrome:
+                return "Chrome";
+            case agent.indexOf("trident") > -1:
+                return "MS IE";
+            case agent.indexOf("firefox") > -1:
+                return "Mozilla Firefox";
+            case agent.indexOf("safari") > -1:
+                return "Safari";
+            default:
+                return "other";
+        }
+    })(window.navigator.userAgent.toLowerCase());
+    var s = '{{instance.script_id}}'
+    w = window.location.href
+    $.ajax({
+        type: 'POST',
+        url: '{{BASE_URL}}/tracking-code/',
+        dataType: 'json',
+        data: { 'i': i, 'b': b, 'w': w, 's': s, 't': t,'device': device },
+    });
+});
+</script></textarea>
+</div>
+<div class="text-center mb-5">
+    <button type="submit" class="btn view" style="height: 42px;" data-bs-dismiss="modal">SAVE</button>
+</div>
+</form>

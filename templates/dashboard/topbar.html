@@ -1,0 +1,53 @@
+{% load static %}
+
+<div class="top-bar">
+<div class="left-sidemenu">
+<a class="menubar">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z"></path></svg>
+</a>
+       <div class="search-1">
+       <h6 style="margin: 0;color: #3D3D3D;font-weight: bold;">
+         {% if 'dashboard' in request.build_absolute_uri %}
+        OVERVIEW
+        {% elif  'user-tracking-code' in request.build_absolute_uri  %}
+        GENERATE TRACKING CODE
+          {% elif  'visitors-log' in request.build_absolute_uri  %}
+          VISITORS LOG
+          {% elif  'contact-us' in request.build_absolute_uri and  'my-plan' in request.build_absolute_uri  %}
+           Contact Us
+           {% elif  'my-plan' in request.build_absolute_uri  %}
+           MY PLAN
+            {% elif  'payment-history' in request.build_absolute_uri  %}
+ PAYMENT HISTORY
+
+ {% elif  'my-profile' in request.build_absolute_uri  %}
+
+MY PROFILE  
+        {% endif %}
+
+        <span style="color:red"> {% if request.user.subscription == None %}(Upgrade your plan to use our services){% endif %}</span></h6>
+       </div>
+     </div>
+       <div class="flex-new">
+
+<div class="dropdown">
+
+  <a class=" dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false" style="color: #81878F;">
+   {% if user.first_name %} {{user.first_name}}&nbsp;{{user.last_name}} {% else %} {{user.email}}{% endif %} 
+   {% if user.profile_image%}
+   <img src="{{user.profile_image.url}}" style="width: 28px;">
+   {% else %}
+   <img src="{% static 'default_profile_image.jpg' %}" style="width: 28px;">
+
+   {% endif %}
+  </a>
+
+  <ul class="dropdown-menu top-13" aria-labelledby="dropdownMenuLink">
+    <li><a class="dropdown-item" href="{% url 'my_profile_app:my_profile_view' %}">Profile</a></li>
+    <li><a class="dropdown-item" href="{% url 'user_app:logout_view' %}">Log out</a></li>
+   
+  </ul>
+</div>
+
+       </div>
+     </div>

@@ -1,0 +1,21 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% block extrahead %}
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" />
+    <style>
+       
+
+#header {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    background: #065464;
+    color: var(--header-color);
+    overflow: hidden;
+}
+    </style>
+{% endblock %}
+

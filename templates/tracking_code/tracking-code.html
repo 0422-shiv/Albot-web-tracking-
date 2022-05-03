@@ -1,0 +1,51 @@
+{% extends 'base/base_template.html' %}
+{% load static %}
+{% block content %}
+<style type="">
+    tbody, td, tfoot, th, thead, tr{
+    background: transparent!important;
+  }
+img.war {
+    max-width: 100px;
+}
+</style>
+{% include '../dashboard/sidebar.html' %}
+<div class="content-page">
+    {% include '../dashboard/topbar.html' %}
+    <div class="content">
+        <div class="tracking">
+            <div class="tracking-img">
+                <img src="{% static 'images/user-img.png' %}">
+            </div>
+            <div class="btn-code mt-5">
+                <a href="{% url 'tracking_code_app:generate_tracking_code_view' %}"> <button class="btn btn-code">GENERATE TRACKING CODE</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+     <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+               <!--  <div class="modal-header" style="">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style=""></button>
+                </div> -->
+                <div class="modal-body">
+                    <div class="text-center">
+                        <img class="war" src="{% static 'images/warnings.png' %}">
+                        <h3 style="    color: #065464;
+    font-weight: bold;
+    position: relative;
+    top: 10px;">Upgrade your plan for generate codes</h3>
+                    </div>
+                    <div class="modal-btn">
+                    <!--     <button class="btn btn-modal">Yes</button> -->
+                        <button type="button" class="btn btn-modal" data-bs-dismiss="modal">Ok
+                        </button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+{% endblock content %}

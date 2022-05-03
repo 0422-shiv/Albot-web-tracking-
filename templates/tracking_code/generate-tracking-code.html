@@ -1,0 +1,108 @@
+{% extends 'base/base_template.html' %}
+{% load static %}
+{% block content %}
+{% include '../dashboard/sidebar.html' %}
+<div class="content-page">
+    {% include '../dashboard/topbar.html' %}
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label names">Name</label>
+                        <input type="Name" class="form-control" placeholder="Albot" name="company_name" required>
+                        <div class="mb-3 mt-3">
+                            <label class="form-label names">Add Website</label>
+                            <input type="url" class="form-control" placeholder="https://www.albot.com/" name="webiste_url" required>
+                        </div>
+                        <input type="hidden" class="form-control" name="script_id" value="{{script_id}}">
+                        <div class="mb-3 mt-3">
+                            <label for="exampleFormControlTextarea1" class="form-label names">Script</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="10" readonly>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+          
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0,
+            v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+let device = getCookie('device')
+
+if (device == null || device == undefined) {
+    device = uuidv4()
+ 
+}
+
+const aYearFromNow = new Date();
+aYearFromNow.setFullYear(aYearFromNow.getFullYear() + 1);
+
+document.cookie = 'device=' + device + ";domain=;path=/;expires=" + aYearFromNow + ";"
+
+var before_loadtime = new Date().getTime();
+$.getJSON('https://api.ipify.org/?format=json', function(data) {
+    var aftr_loadtime = new Date().getTime();
+    var t = Math.round((aftr_loadtime - before_loadtime) / 60)
+    var i = JSON.stringify(data.ip, null, 2)
+    var b = (function(agent) {
+
+        switch (true) {
+            case agent.indexOf("edge") > -1:
+                return "MS Edge";
+            case agent.indexOf("edg/") > -1:
+                return "Edge ( chromium based)";
+            case agent.indexOf("opr") > -1 && !!window.opr:
+                return "Opera";
+            case agent.indexOf("chrome") > -1 && !!window.chrome:
+                return "Chrome";
+            case agent.indexOf("trident") > -1:
+                return "MS IE";
+            case agent.indexOf("firefox") > -1:
+                return "Mozilla Firefox";
+            case agent.indexOf("safari") > -1:
+                return "Safari";
+            default:
+                return "other";
+        }
+    })(window.navigator.userAgent.toLowerCase());
+    var s = '{{script_id}}'
+    w = window.location.href
+    $.ajax({
+        type: 'POST',
+        url: '{{BASE_URL}}/tracking-code/',
+        dataType: 'json',
+        data: { 'i': i, 'b': b, 'w': w, 's': s, 't': t,'device': device},
+    });
+});
+</script> </textarea>
+                        </div>
+                        <div class="text-end mt-4">
+                             <button type="button" onclick="history.back()" class="btn btn-exit script_delete">EXIT</button>
+                            <!-- <button type="button" class="btn btn-exit script_delete" data-script_id="{{script_id}}">EXIT</button> -->
+                            <button type="submit" class="btn btn-submits"><a style="color: #fff;"> SAVE</a></button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

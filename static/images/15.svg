@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="356" height="356" viewBox="0 0 356 356">
+  <defs>
+    <filter id="Ellipse_125" x="0" y="0" width="356" height="356" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feFlood flood-opacity="0.231"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_14448" data-name="Group 14448" transform="translate(5018 -3152)">
+    <g transform="matrix(1, 0, 0, 1, -5018, 3152)" filter="url(#Ellipse_125)">
+      <circle id="Ellipse_125-2" data-name="Ellipse 125" cx="148" cy="148" r="148" transform="translate(30 30)" fill="#065464"/>
+    </g>
+    <g id="Group_14447" data-name="Group 14447" transform="translate(-4666.576 -2567)">
+      <path id="Path_6489" data-name="Path 6489" d="M68.706,18.19H57.385V65.282H26.5V76.6H68.706Z" transform="translate(-243.786 5819.269)" fill="#fff"/>
+      <path id="Path_6490" data-name="Path 6490" d="M162.9,98.032A80.827,80.827,0,1,0,98.032,162.9,46.357,46.357,0,1,0,162.9,98.032ZM83.41,152.917A69.506,69.506,0,1,1,152.917,83.41a70.359,70.359,0,0,1-.491,8.641,46.338,46.338,0,0,0-60.375,60.375,70.3,70.3,0,0,1-8.641.491ZM135.144,170.2a35.074,35.074,0,1,1,.019,0Z" transform="translate(-265 5805.424)" fill="#fff"/>
+      <rect id="Rectangle_1269" data-name="Rectangle 1269" width="11.32" height="35.376" transform="translate(-135.497 5916.286)" fill="#fff"/>
+      <rect id="Rectangle_1270" data-name="Rectangle 1270" width="11.32" height="10.849" transform="translate(-135.497 5955.907)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

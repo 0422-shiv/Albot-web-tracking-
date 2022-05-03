@@ -1,0 +1,42 @@
+{% load static %}
+<div class="sidebar">
+    <div class="logo">
+        <a href="{% if request.user.subscription == None %}{% url 'my_plan_app:my_plan_view' %}{% else %}{% url 'dashboard_app:overview_view' %}{% endif %}"> <img src="{% static 'images/ailogo.png' %}" style="width: auto;"></a>
+    </div>
+    <ul class="dashboard">
+        <li class="link ">
+            {% if not request.user.subscription == None %}
+            <a href="{% url 'dashboard_app:overview_view' %}?sort_by_days=7">
+                <img src="{% static 'images/plugs.png' %}" style="margin-right:2px;"> Overview
+            </a>
+           
+            {% endif %}
+        </li>
+
+        <li class="link">
+            {% if not request.user.subscription == None %}
+            <a href="{% url 'tracking_code_app:user_tracking_code_view' %}">
+                <img src="{% static 'images/extracts.png' %}"> Tracking Codes
+            </a>
+         
+            {% endif %}
+        </li>
+        <li class="link">
+            {% if not request.user.subscription == None %}
+            <a href="{% url 'tracking_code_app:visitors_log_view' %}"><img src="{% static 'images/icon_calendar.svg' %}"> Visitors Log</a></li>
+           
+            {% endif %}
+        <li class="link">
+            <a href="{% url 'my_plan_app:my_plan_view' %}"><img src="{% static 'images/icon_help-center.svg' %}"> My Plan</a>
+        </li>
+        <li class="link">
+            <a href="{% url 'payment_history_app:payment_history_view' %}">
+                <img src="{% static 'images/icon_dashboard.svg' %}" style="margin-right:2px;"> Payment History</a>
+        </li>
+        <li class="link">
+            <a href="{% url 'my_profile_app:my_profile_view' %}">
+                <img src="{% static 'images/icon_dashboard.svg' %}" style="margin-right:2px;"> My Profile
+            </a>
+        </li>
+    </ul>
+</div>

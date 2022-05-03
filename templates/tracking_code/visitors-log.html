@@ -1,0 +1,512 @@
+{% extends 'base/base_template.html' %}
+{% load static %}
+{% block content %}
+<style type="">
+    tbody, td, tfoot, th, thead, tr{
+    background: transparent!important;
+  }
+  .apply-btnes {
+    text-align: center;
+}
+.apply-btnes button {
+    border: none;
+    background: #065464;
+    color: #fff;
+    padding: 7px 64px;
+    border-radius: 6px;
+    position: relative;
+    left: 17px;
+    font-size: 16px;
+    top: 4px;
+}
+  .downloade-btn a {
+    background: #065464;
+    color: #fff;
+    padding: 6px 35px;
+    position: relative;
+    left: 8px;
+    border-radius: 6px;
+}
+.downloade-btn{
+    text-align: center;
+}
+  .date-picker{
+    display: flex!important;
+    position: relative;
+  }
+  .no-result {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+        top: 40px;
+        background: #fff!important;
+    color: red;
+}
+i.fa.fa-sliders {
+    position: absolute;
+    top: 10px;
+    left: 8px;
+}
+
+
+.picker-btn {
+    display: flex;
+    position: relative;
+}
+a.btn.view {
+    position: relative;
+    top: -2px;
+}
+select.form-select {
+    text-align: left;
+    padding-left: 25px;
+}
+/*input.form-control.icons {
+ margin-left: 73px;
+ font-size: 16px;
+}
+
+
+
+input.form-control.icon {
+   margin-left: 36px;
+   font-size: 16px; 
+}*/
+
+
+.selectes {
+    position: relative;
+    top: 1px;
+    left: 12px;
+}
+select.form-control.filters.short_by {
+    width: 63px;
+    margin-left: 20px;
+    padding: 5px;
+}
+.tabel {
+    position: relative;
+}
+i.fa.fa-sliders.slid {
+    position: absolute;
+    left: 6px;
+    top: 10px;
+}
+.value input {
+    width: fit-content;
+    position: relative;
+    right: 18px;
+    padding: 6px!important;
+}
+
+.values input {
+    width: auto;
+    position: relative;
+    right: 12px;
+}
+
+
+
+
+.value {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: 10px;
+    justify-content: space-between;
+
+}
+
+.values {
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: 10px;
+    left: 0px;
+    justify-content: space-between;
+}
+.values span {
+    font-size: 14px;
+    position: relative;
+    left: 8px;
+}
+
+
+
+/*span.from {
+   color: #065464;
+    font-size: 12px;
+    margin: 5px;
+    font-weight: bold;
+    position: relative;
+    top: 30px;
+    left: 42px;
+}
+span.froms {
+   color: #065464;
+    font-size: 12px;
+    margin: 5px;
+    font-weight: bold;
+    position: relative;
+    top: 30px;
+    left: -8px;
+}*/
+.page-item.active .page-link {
+z-index: 3;
+    color: #fff;
+    background-color: #003f4b;
+    border-color: #003f4b;
+    border-radius: 25px;
+    width: 41px;
+    height: 41px;
+        padding: 8px 16px;
+    /* text-align: center; */
+}
+a.page-link {
+    color: #52575D;
+    font-weight: bold;
+    border: none;
+    padding: 8px 20px;
+    background: transparent;
+}
+.page-item:not(:first-child) .page-link {
+    margin-left: 10px;
+}
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+</style>
+
+{% include 'dashboard/sidebar.html' %}
+<div class="content-page">
+    {% include 'dashboard/topbar.html' %}
+    {% for message in messages %}
+    <div class="container-fluid p-0">
+        <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="True">&times;</span>
+            </button>
+            {{ message }}
+        </div>
+    </div>
+    {% endfor %}
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="border-whiete">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="seacrhe">
+                                <form method="GET">
+                                    {% if query %}
+                                    <input type="search" name="q" placeholder="Company name or IP Address" class="form-control" style="font-size: 16px; width: 100%;" value="{{query}}">
+                                    {% else %}
+                                    <input type="search" name="q" placeholder="Company name or IP Address" class="form-control" style="font-size: 16px;width: 100%;">
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                           
+                                <div class="date-picker">
+                                    <i class="fa fa-sliders" aria-hidden="true"></i>
+                                    <select class="form-select short_by" aria-label="Default select example" style=" font-size: 16px;">
+                                        <option selected>Filter</option>
+                                        {% if sort_by_days == '7' %}
+                                        <option class="border" value="sort_by_days=7" selected>Last 7 days</option>
+                                        {% else %}
+                                        <option class="border" value="sort_by_days=7">Last 7 days</option>
+                                        {% endif %}
+                                        {% if sort_by_days == '30' %}
+                                        <option class="border" value="sort_by_days=30" selected>Last 30 days</option>
+                                        {% else %}
+                                        <option class="border" value="sort_by_days=30">Last 30 days</option>
+                                        {% endif %}
+                                        {% if sort_by_days == '90' %}
+                                        <option class="border" value="sort_by_days=90" selected>Last 3 months</option>
+                                        {% else %}
+                                        <option class="border" value="sort_by_days=90">Last 3 months</option>
+                                        {% endif %}
+                                        {% if sort_by_days == '180' %}
+                                        <option class="border" value="sort_by_days=180" selected>Last 6 months</option>
+                                        {% else %}
+                                        <option class="border" value="sort_by_days=180">Last 6 months</option>
+                                        {% endif %}
+                                        {% if sort_by_month == 'current_month' %}
+                                        <option class="border" value="sort_by_month=current_month" selected>This month </option>
+                                        {% else %}
+                                        <option class="border" value="sort_by_month=current_month">This month </option>
+                                        {% endif %}
+                                        {% if sort_by_year == 'current_year' %}
+                                        <option class="border" value="sort_by_year=current_year" selected>This year </option>
+                                        {% else %}
+                                        <option class="border" value="sort_by_year=current_year">This year </option>
+                                        {% endif %}
+                                       <!--  {% if sort_by_personalized == 'personalized' %}
+                                        <option class="border" value="sort_by_personalized=personalized" selected>Personalized</option>
+                                        {% else %}
+                                        <option class="border" value="sort_by_personalized=personalized">Personalized</option>
+                                        {% endif %} -->
+                                    </select>
+                                </div>
+                            
+                        </div>
+                        <div class="col-md-3">
+                            <div class="picker-btn">
+                                <i class="fa fa-sliders slid" aria-hidden="true"></i>
+                                <select class="form-select tracking_code" aria-label="Default select example" style=" font-size: 16px;">
+                                    <option class="border">Filter By Code</option>
+                                    {% for data in get_tracking_code %}
+                                    {% if data == track_id %}
+                                    <option class="border" value="tracking_id={{data.script_id}}" selected>{{data.company_name}}</option>
+                                    {% else %}
+                                    <option class="border" value="tracking_id={{data.script_id}}">{{data.company_name}}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                </select>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="downloade-btn">
+                                <a href="{% url 'tracking_code_app:export_visitors_log_data' %}" class="btn view"><i class="fa fa-download" aria-hidden="true"></i>
+                                    Download</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-md-12">
+                        <div class="row">
+                            <form method="GET" style="display: flex;">
+                                <div class="col-md-3">
+                                    <div class="value">
+                                        <span class="froms">From</span>
+                                        {% if from_date %}
+                                        <input type="date" name="from_date" class="form-control icon" value={{from_date}}>
+                                        {% else %}
+                                        <input type="date" name="from_date" class="form-control icon">
+                                        {% endif %} </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="values">
+                                        <span class="from" style="">to</span>
+                                        {% if to_date %}
+                                        <input type="date" name="to_date" class="form-control icons" value={{to_date}}>
+                                        {% else %}
+                                        <input type="date" name="to_date" class="form-control icons">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="apply-btnes">
+                                    <button class="Apply" type="submit">Apply</button></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-md-4 mb-3">
+                        <div class="card count-card">
+                            <div class="average">
+                                <h5>AVERAGE TIME ON PAGE</h5>
+                            </div>
+                            <div class="card-body body-count">
+                                <div class="counting">
+                                    <h4>{{avg_time}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card count-card">
+                            <div class="average">
+                                <h5>TOP BROWSER</h5>
+                            </div>
+                            <div class="card-body body-count">
+                                <div class="counting">
+                                    <h4>{{top_browser}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card count-card">
+                            <div class="average">
+                                <h5>TOTAL VISITORS</h5>
+                            </div>
+                            <div class="card-body body-count">
+                                <div class="counting">
+                                    <h4>{{total_visitors}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  <!--   <div class="col-md-3 mb-3">
+                        <div class="card count-card">
+                            <div class="average">
+                                <h5>INDENTIFIABLE VISITORS</h5>
+                            </div>
+                            <div class="card-body body-count">
+                                <div class="counting">
+                                    <h4>0</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="col-md-12  position-relative">
+                    <table class="table table-borderless ">
+                        <thead>
+                            <tr class="roew">
+                                <th class="heading"><input type="checkbox" name=""></th>
+                                <th class="heading" style="width: 162px!important;">Company Name </th>
+                                <th class="heading">Web Page Name </th>
+                                <th class="heading">IP Address</th>
+                                <th class="heading">Country</th>
+                                <th class="heading">Browser</th>
+                                <th class="heading">Visits</th>
+                                <th class="heading">Date</th>
+                                <th class="heading">Time</th>
+                                <th class="heading">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if visitors_data %}
+                            {% for data in visitors_data %}
+                            <tr>
+                                <td class="td-row"><input type="checkbox" name=""></td>
+                                <td class="td-row"> {{data.company_name}} </td>
+                                <td class="td-row"> {{data.web_page_url}} </td>
+                                <td class="td-row"> {{data.ip_address}} </td>
+                                <td class="td-row"> {{data.country}} </td>
+                                <td class="td-row"> {{data.browser}} </td>
+                                <td class="td-row"> {{data.visitors|default:''}} </td>
+                                <td class="td-row"> {{data.update_at | date:"F d Y" }} </td>
+                                <td class="td-row"> {{data.update_at | time}} </td>
+                                <td class="td-row">
+                                    <button class="delete_log" data-id="{{data.id}}">
+                                        <i class="fa fa-trash" data-bs-toggle="modal" data-bs-target="#exampleModal-4"></i></button></td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            <td class="no-result">
+                                   <div class="text-center mt-3">
+                            <img src="{% static 'images/logoe.png' %}" class="logo-aiboat" style="    width: 300px;">
+                            <h5 class="no-records">No Record Found!</h5>
+                        </div>
+                            </td>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+                <nav aria-label="Page navigation " class="supplier-pagination mt-4">
+                    {% if visitors_data.has_other_pages %}
+                    <ul class="pagination justify-content-center">
+                        {% if visitors_data.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ visitors_data.previous_page_number }}">Previous</a></li>
+                        {% else %}
+                        <li class="disabled page-item"></li>
+                        {% endif %}
+                        {% for i in visitors_data.paginator.page_range %}
+                        {% if visitors_data.number == i %}
+                        <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if visitors_data.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ visitors_data.next_page_number }}">Next</a></li>
+                        {% else %}
+                        <li clhass="disabled page-item"></li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!--     <div class="modal fade" id="exampleModal-1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background: #065464;color: #fff;">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style=""></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        <h3 style="    color: #065464;
+    font-weight: bold;
+    position: relative;
+    top: 10px;">Are You Sure ?</h3>
+                    </div>
+                    <div class="modal-btn">
+                        <button class="btn btn-modal">Yes</button>
+                        <button class="btn btn-modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    {% endblock content %}
+    {% block script %}
+    <script type="text/javascript">
+    $(document).on("click", ".delete_log", function() {
+        var id = $(this).data("id");
+        console.log(id)
+
+        swal({
+                title: "Are you sure?",
+                text: "You want to delete !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: 'btn-danger',
+                confirmButtonText: 'Yes, delete it!',
+                closeOnConfirm: false,
+                // closeOnCancel: false
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    var token = '{{csrf_token}}';
+                    console.log(id)
+                    $.ajax({
+                        headers: { "X-CSRFToken": token },
+                        url: "{% url 'tracking_code_app:delete_visitor_log_view' %}?id=" + id,
+                        type: "POST",
+                        success: function() {
+                            swal("Done!", "It was succesfully deleted!", "success");
+                            location.reload();
+                        }
+                    });
+                } else {
+                    swal("Cancelled", "Your imaginary file is safe :)", "error");
+                }
+            })
+    });
+    </script>
+    <script>
+    $(document).on('change', ".tracking_code", function() {
+        var filter_by_code = $(this).val();
+
+        var url_string = window.location.href; //window.location.href
+        var url = new URL(url_string);
+        var sort_by_days = url.searchParams.get("sort_by_days");
+        var sort_by_month = url.searchParams.get("sort_by_month");
+        var sort_by_year = url.searchParams.get("sort_by_year");
+        if (sort_by_days) {
+            window.location.href = '?sort_by_days=' + sort_by_days + "&" + filter_by_code;
+        } else if (sort_by_month) {
+            window.location.href = '?sort_by_month=' + sort_by_month + "&" + filter_by_code;
+        } else if (sort_by_year) {
+            window.location.href = '?sort_by_year=' + sort_by_year + "&" + filter_by_code;
+        } else {
+
+            window.location.href = "?" + filter_by_code;
+        }
+    });
+    </script>
+    {% endblock script %}
